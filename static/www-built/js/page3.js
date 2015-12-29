@@ -1,0 +1,38 @@
+/* 
+ * The MIT License
+ *
+ * Copyright 2015 Jesper Schmitz Mouridsen.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+require(["./common"],function(b){require(["app/main3"])});define("../page3",function(){});define("app/Formatter",[],function(){return Formatter={quotaFormat:function(b,d,a,c,e){b=e[c.field];b=Number(b);d=["KB","MB","GB","TB","PB"];a=0;if(0==b)return fmtValue="0 KB";if(1024>b)return fmtValue=Number(b)+" "+d[a];for(;1024<=b;)a++,b/=1024;return fmtValue=Number(b)+" "+d[a]}}});
+define("app/Gridconfig",["app/i18n"],function(b){function d(a){this.columns=a.columns;this.options=a.options;this.url=a.url;this.selector=a.selector;this.deleteText=a.deleteText;this.deleteKey=a.deleteKey}d.prototype={getColumns:function(a){return this.columns},getOptions:function(){return this.options},getBufferText:function(){return b.gettext("Buffering...")},getUrl:function(){return this.url},initHeaderMenu:function(){for(var a=this.columns.length,c=0;c<a;c++)0!=this.columns[c].sortable&&(this.columns[c].header=
+{menu:{items:[{iconImage:"../static/css/images/sort-asc.png",title:b.gettext("Sort ascending"),command:"sort-asc"},{iconImage:"../static/css/images/sort-desc.png",title:b.gettext("Sort descending"),command:"sort-desc"}]}})}};return d});
+define("app/grid3",["slick.editors","app/Formatter","app/Gridconfig","app/i18n"],function(b,d,a,c){function e(c){a.call(this,c);return this}e.prototype=Object.create(a.prototype);e.prototype.getDeleteText=function(a){return c.gettext("Delete account?")};e.prototype.getErrorHeader=function(){return c.gettext("An error occured")};e.prototype.getDialogText=function(a){return c.sprintf(c.gettext("Delete account %s ?"),a.username)};return e});
+define("app/accountgrid",["slick.editors","app/Formatter","app/grid3","app/i18n"],function(b,d,a,c){var e=new a({columns:[{id:"id",name:"id",field:"id",sortable:!0,focusable:!0,editable:!1},{id:"username",name:c.gettext("Account"),field:"username",sortable:!0,focusable:!0,editor:!1},{id:"quota",name:c.gettext("Quota"),formatter:d.quotaFormat,field:"quota",sortable:!1,focusable:!0,editable:!0,editor:b.FileSizeEditor,searchable:!1},{id:"quota_used",name:c.gettext("Quota used"),formatter:d.quotaFormat,
+field:"quota_used",sortable:!1,focusable:!0,editable:!1,searchable:!1},{id:"quota_percentage",name:c.gettext("Quota percentage"),field:"quota_percentage",sortable:!1,focusable:!0,editable:!1,searchable:!1},{id:"aliases",name:c.gettext("Number of aliases"),field:"aliases_count",sortable:!1,focusable:!0,editor:!1,searchable:!1},{id:"max aliases",name:c.gettext("Max number of aliases"),field:"max_aliases",sortable:!1,focusable:!0,editable:!0,editor:b.Integer,searchable:!1}],options:{rowHeight:24,editable:!0,
+autoEdit:!1,fullWidthRows:!1,enableAddRow:!1,forceFitColumns:!0,multiSelect:!1,multiColumnSort:!0,enableCellNavigation:!0,editCommandHandler:function(a,c,b){b.execute();var d={};d[c.field]=a[c.field];d.id=a.id;$.ajax({url:"/ajax/accounts",context:b,method:"post",error:b.undo,success:function(a){0===$.parseJSON(a).success&&b.undo();$(e).trigger("row-saved",[$.parseJSON(a),this.row])},data:d})}},url:"/ajax/accounts"});return e});
+define("app/Baseform",["app/i18n"],function(b){function d(a){this.el=$($(a)[0]).clone().appendTo("body").attr("class","item-details-form")}d.prototype={show:function(a){$(this.el).draggable({containment:"parent"});$(this.el).css({display:"block"});$(this.el).position({my:"center",at:"center",of:$(window)});a&&($.map($(this.el).find("input:disabled"),function(a){$(a).removeAttr("disabled")}),void 0!=this.selector&&this.makeSelector($(this.el).find("div.multiple")[0],this.selector),void 0!=this.selector2&&
+this.makeSelector($(this.el).find("div.multiple")[2],this.selector2))},enableForm:function(){var a=this;$(this.el).find("[data-action\x3dsave]").click(function(){a.save(a.getPostData(),a.getSaveUrl());return!1});$(this.el).find("[data-action\x3dcancel]").click(function(){$(a.el).remove();return!1})},getForm:function(){return $(this.el).find("form")[0]},makeSelector:function(a,c,b){var d=c.displayField,g=c.valueField,f=c.txt,h;h={url:c.url,dataType:"json",quietMillis:100,data:function(a,b){return{q:a,
+page_limit:10,page:b}},results:function(a,b){return{results:a.results,more:10*b<a.total}}};f={multiple:c.multiple,placeholder:f,minimumInputLength:1,formatResult:function(a){return a[d]},formatSelection:function(a){return a[d]},id:function(a){return a[g]}};void 0!=c.url&&void 0==c.data?f.ajax=h:(f.minimumInputLength=0,f.data=c.data);$(a).select2(f);void 0!=b&&$(a).select2("data",b);return a},save:function(a,c){form=$(this.el).find("form")[0];$.ajax({method:"post",url:c,data:$(form).serialize()+a,
+success:function(a){$(form).trigger("form-saved",[$.parseJSON(a)])},statusCode:{403:function(){dialog=$("\x3cdiv/\x3e");$(dialog).attr("title",b.gettext("An error occured"));$(dialog).append("\x3cp/\x3e"+b.gettext("Permission denied")+"\x3c/p\x3e");$(dialog).dialog({resizable:!1,height:150,closeText:"",modal:!0,buttons:[{text:"Ok",click:function(){$("body").remove($(dialog));$(this).dialog("destroy")}}]})},404:function(){dialog=$("\x3cdiv/\x3e");$(dialog).attr("title",b.gettext("An error occured"));
+$(dialog).append("\x3cp\x3e"+b.gettext("Invalid paramters")+"\x3c/p\x3e");$(dialog).dialog({resizable:!1,height:150,closeText:"",modal:!0,buttons:[{text:"Ok",click:function(){$(this).dialog("destroy")}}]})}}});return!1},getDialogText:function(){return b.getttext("Delete domain")}};return d});
+define("app/form3",["app/Baseform"],function(b){function d(a){this.selector={url:"/ajax/domains",valueField:"id",displayField:"domain_name",root:"domains",multiple:!1};b.call(this,a);return this}d.prototype=Object.create(b.prototype);d.prototype.populate=function(a){$($(this.el).find("div.multiple")[0]).select2("destroy");$($(this.el).find("div.multiple")[0]).hide();$($(this.el).find("label.multiple")[0]).hide();var b=$(this.el);$.each(a,function(a,d){var g=$(b).find("input[name\x3d"+a+"]");1==g.length&&
+$(g[0]).val(d)})};d.prototype.getPostData=function(){var a="";"none"!=$($(this.el).find("div.multiple")[0]).css("display")&&(a="\x26domain_id\x3d"+$($(this.el).find("div.multiple")[0]).select2("val"));return a};d.prototype.getSaveUrl=function(){return"/ajax/accounts"};return d});define("app/main3",["jquery","jqueryui","app/accountgrid","app/form3","app/Basegrid"],function(b,d,a,c,e){b(function(){new e(b,a,c)})});

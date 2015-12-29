@@ -1,0 +1,227 @@
+msgid "Login"
+msgstr "Log ind"
+
+msgid "save"
+msgstr "Gem"
+
+msgid "cancel"
+msgstr "Annuller"
+
+msgid "Buffering..."
+msgstr "Buffering..."
+
+msgid "Sort ascending"
+msgstr "Sortér stigende"
+
+msgid "Sort descending"
+msgstr "Sortér faldende"
+
+msgid "Wrong username or password"
+msgstr "Forkert brugernavn eller adgangdskode"
+
+msgid "Username and password required"
+msgstr "Brugernavn og kodeord påkrævet"
+
+msgid "Manage accounts"
+msgstr "Administrer mailkonti"
+
+msgid "Manage aliases"
+msgstr "Administrer mailaliaser"
+
+msgid "The number of max aliases for the account (%1) has been reached"
+msgstr "Antallet af aliaser for kontoen (%1) er nået"
+
+msgid "The max number of aliases for the domain is %1"
+msgstr "Maks antal aliaser for domænet er %1"
+
+msgid "The max quota for the domain is %1"
+msgstr "Maks kvota for domænet er %1"
+
+msgid  "Alias domain"
+msgstr "Alias domæne"
+
+msgid "Missing information"
+msgstr "Manglende information"
+
+msgid "Alias with the same name already exists"
+msgstr "Der er allerede et alias med det navn"
+
+msgid "Logout"
+msgstr "Log ud"
+
+msgid "Domain"
+msgstr "Domæne"
+msgid "Manage domains"
+msgstr "Administrer domæner"
+
+msgid "Manage user roles"
+msgstr "Administrer brugerrettigheder"
+
+msgid "Password"
+msgstr "Kodeord"
+
+msgid "Confirm password"
+msgstr "Bekræft kodeord"
+
+msgid "Username"
+msgstr "Brugernavn"
+
+msgid "Role"
+msgstr "Rettighed"
+
+msgid "Domain(s)"
+msgstr "Domæne(r)"
+
+msgid "Search:"
+msgstr "Søg:"
+
+msgid "Users"
+msgstr "Brugere"
+
+msgid "Open Item Edit for active row"
+msgstr "Åbn formular til ændring af aktiv række"
+
+msgid "Accounts"
+msgstr "Konti"
+
+msgid "Account"
+msgstr "Konto"
+
+msgid "Quota"
+msgstr "Kvote"
+
+msgid "Quota used"
+msgstr "Kvote brugt"
+
+msgid "Quota percentage"
+msgstr "Kvote brugt procent"
+
+msgid "Number of aliases"
+msgstr "Antal aliaser"
+
+msgid "Max number of aliases"
+msgstr "Maks antal aliaser"
+
+msgid "Domains"
+msgstr "Domæner"
+
+msgid "Domain name"
+msgstr "Domænenavn"
+
+msgid "Max quota pr. account"
+msgstr "Maks kvote per konto"
+
+msgid "Max aliases pr. account"
+msgstr "Maks aliaser per konto"
+
+msgid "Max accounts"
+msgstr "Maks antal konti"
+
+msgid "Managed by"
+msgstr "Administreret af"
+
+msgid "Please enter %1$d more character"
+msgstr "Indtast venligst %1$d bogstav mere"
+
+msgid "Please enter %1$d more characters"
+msgstr "Indtast venligst %1$d bogstaver mere"
+
+msgid "Please delete %1$d character"
+msgstr "Slet venligst %1$d bogstav"
+
+msgid "Please delete %1$d characters"
+msgstr "Slet venligst %1$d bogstaver"
+
+msgid "You can only select %1$d item"
+msgstr "Du kan kun vælge %1$d ting"
+
+msgid "You can only select %1$d items"
+msgstr "Du kan kun vælge %1$d ting"
+
+msgid "Delete domain?"
+msgstr "Slet domænet?"
+
+msgid "Delete domain %s ?"
+msgstr "Slet domænet %s ?"
+
+msgid "The domain %1 has already more than %2 accounts (%3)"
+msgstr "Domænet %1 har allerede mere end %2 konti (%3)"
+
+msgid "New domain"
+msgstr "Nyt domæne"
+
+msgid "Domain already exists"
+msgstr "Domænet eksisterer allerede"
+
+msgid "Max quota per account"
+msgstr "Maks kvota per konto"
+
+msgid "Max aliases per account"
+msgstr "Maks antal aliaser per konto"
+
+msgid "You are logged in as %1"
+msgstr "Du er logget ind som %1"
+
+msgid "Invalid parameters"
+msgstr "Ugyldige parametre"
+
+msgid "Permission denied"
+msgstr "Adgang nægtet"
+
+msgid "Delete domain"
+msgstr "Slet domæne"
+
+
+msgid "Max quota per account is as required field for a non alias domain"
+msgstr "Maks kvota per konto er påkrævet for ikke alias domæner"
+
+msgid "New account"
+msgstr "Ny konto"
+
+msgid "New alias"
+msgstr "Nyt alias"
+
+msgid "Delete account?"
+msgstr "Slet konto?"
+
+msgid "An error occured"
+msgstr "Der opstod en fejl"
+
+msgid "Delete account %s ?"
+msgstr "Slet kontoen %s ?"
+
+msgid "The number (%1) of accounts allowed for the domain %2 has been reached"
+msgstr "Antallet (%1) af konti tilladt for domænet %2 er nået"
+
+msgid "Please choose the domain for the alias"
+msgstr "Vælg venligswt et domæne til aliases"
+
+msgid "A domainadminsitrator must have at least one domain"
+msgstr "En domæneadministrator skal have mindst et domæne"
+
+msgid "Delete alias?"
+msgstr "Slet alias?"
+
+msgid "Delete alias %s ?"
+msgstr "Slet aliaset %s ?"
+
+msgid "Delete alias"
+msgstr "Slet alias"
+
+msgid "The alias %1 is already in use"
+msgstr "Aliaset %1 er allerede i brug"
+
+msgid "The alias %1 is already in use as a username"
+msgstr "Aliaset %1 er allerede i brug som et brugernavn"
+
+msgid "Delete account"
+msgstr "Slet konto"
+
+msgid "Loading more results..."
+msgstr "Finder flere resultater"
+
+msgid "Searching..."
+msgstr "Søger..."
+
+msgid "No matches found"
+msgstr "Ingen resultater fundet"

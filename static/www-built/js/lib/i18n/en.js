@@ -1,0 +1,1 @@
+define("lang",[],function(){return{locale_data:{messages:{"":{domain:"messages",lang:"en",plural_forms:"nplurals\x3d2; plural\x3d(n !\x3d 1);"}}}}});

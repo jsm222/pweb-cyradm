@@ -1,0 +1,5 @@
+hosts = 127.0.0.1
+user = mail
+password = mail
+dbname = mail
+query = select domain_name from domains where domain_name = '%s' and is_alias_domain;

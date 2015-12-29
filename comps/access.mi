@@ -1,0 +1,9 @@
+<% # Copyright (c) 2015 Jesper Schmitz Mouridsen %>
+<% # See the file LICENSE.txt for copying permission. %>
+<%init>
+   if (!$m->session->{'~uid~'}) {
+       $m->redirect('/login/index' );
+   } else {
+   $m->redirect('/app/index')
+   }
+  </%init>

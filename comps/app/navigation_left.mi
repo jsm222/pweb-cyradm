@@ -1,0 +1,22 @@
+<% # Copyright (c) 2015 Jesper Schmitz Mouridsen %>
+<% # See the file LICENSE.txt for copying permission. %>
+<%class>
+	has 'lh';
+	has 'authorize';
+</%class>
+<ul id="menu">
+% if($.authorize->can_do("Administrator",sub { return 1},[])) {
+<li><a href="/app/manage_user_roles"><% $.lh->maketext("Manage user roles") %></a></li>
+% }
+% if($.authorize->can_do("ManageDomains",sub { return 1},[])) {
+<li><a href="/app/manage_domains"><% $.lh->maketext("Manage domains") %></a></li>
+% }
+% if($.authorize->can_do("AccountUser",sub { return 1},[])) {
+<li><a href="/app/manage_accounts"><% $.lh->maketext("Manage accounts") %></a></li>
+% }
+% if($.authorize->can_do("ManageAliases",sub { return 1},[])) {
+<li><a href="/app/manage_aliases"><% $.lh->maketext("Manage aliases") %></a></li>
+% }
+<li><a href="/login/logout"><% ($m->session->{"~uid~"}) ? $.lh->maketext("Logout") : $.lh->maketext("Login") %></a></li>
+</ul>
+

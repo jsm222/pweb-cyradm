@@ -1,0 +1,1 @@
+Pweb-cyradm is an web-based administrative tool for postfix/cyrus setup with levels of access rigths, so that for instance a user with the role AccountUser can manage his own aliases, whereas the role Administrator can do anything

@@ -1,0 +1,16 @@
+{
+   "da.mo" : {
+      "Password" : [
+         null,
+         "Kodeord"
+      ],
+      "Username" : [
+         null,
+         "Brugernavn"
+      ],
+      "Login" : [
+         null,
+         "Log ind"
+      ]
+   }
+}

@@ -1,0 +1,12 @@
+<% # Copyright (c) 2015 Jesper Schmitz Mouridsen %>
+<% # See the file LICENSE.txt for copying permission. %>
+<%class>
+use PwebCyradm::Authorize;
+	has 'mycan';
+	has 'bizrule';
+	has 'bizrule_args';
+</%class>
+% my $myauth = PwebCyradm::Authorize->new($m->session->{'~uid~'});
+% if(!($myauth->can_do($self->mycan,$self->bizrule,$self->bizrule_args))) {
+% $m->abort(403);
+% }
