@@ -61,7 +61,7 @@ define(['app/i18n'],function (i18n) {
     gridConfig.prototype = {
 
 	
-        getColumns: function (editor) {
+        getColumns: function () {
             return this.columns;
         },
 	getOptions: function () {

@@ -6,7 +6,7 @@
   } else {
     // Browser globals
     root.Slick.AutoTooltips = factory(root.jQuery);
-  }
+    }
 }(this, function ($) { 
 
   /**
@@ -72,13 +72,13 @@
     function handleHeaderMouseEnter(e, args) {
       var column = args.column,
           $node = $(e.target).closest(".slick-header-column");
-      if (!column.toolTip) {
+      if (column && !column.toolTip) {
         $node.attr("title", ($node.innerWidth() < $node[0].scrollWidth) ? column.name : "");
       }
     }
     
     // Public API
- $.extend(this, {
+    $.extend(this, {
       "init": init,
       "destroy": destroy
     });

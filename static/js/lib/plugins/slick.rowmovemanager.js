@@ -6,7 +6,7 @@
   } else {
     // Browser globals
     root.Slick.RowMoveManager = factory(root.jQuery, root.Slick);
-  }
+    }
 }(this, function ($, Slick) { 
 
   function RowMoveManager(options) {

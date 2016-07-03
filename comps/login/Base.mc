@@ -8,9 +8,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
 <link rel="stylesheet" href="/static/css/style.css" />
-<link rel="stylesheet" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" />
 <script src="//code.jquery.com/jquery-1.9.1.js"></script>
-<script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
 <title><% $lh->maketext("Pweb-cyradm login page") %></title>
 <link rel="shortcut icon" href="static/images/favicon.png"/>
 <script type="text/javascript">

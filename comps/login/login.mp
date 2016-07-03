@@ -1,6 +1,7 @@
 # Copyright (c) 2015 Jesper Schmitz Mouridsen 
 # See the file LICENSE.txt for copying permission.
     use PwebCyradm::Authenticate;
+    use PwebCyradm::User;
     has 'username';
     has 'password';
     has 'language';	

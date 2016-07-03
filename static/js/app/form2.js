@@ -48,7 +48,7 @@
  */
 
 
-define(["app/Baseform"],function(Baseform) {
+define(["app/Baseform","slick.formatters"],function(Baseform,formatters) {
 	function Form2(sel) {
 	this.selector = {url:'/ajax/users',valueField:'id',displayField:'username',root:'users',multiple:true};
 	Baseform.call(this,sel);
@@ -60,16 +60,16 @@ define(["app/Baseform"],function(Baseform) {
 	var sel1 = this.makeSelector($(this.el).find("div.multiple")[0],this.selector,record.users);
 	var modal = $(this.el);
 	$.each(record,function(key,value) {
-	
-
-	
-	
 	var input = $(modal).find("input[name="+key+"]");
-	if(key==="is_alias_domain") {		
+        if(key === "max_quota_per_account")  {
+           var text = $(modal).find("input[name=max_quota_per_account_text]")[0];
+           $(text).val(formatters.FileSizeFormatter(undefined,undefined,value));
+           $(input[0]).val(value);
+        } else if(key==="is_alias_domain") {		
 	$(input[0]).prop("checked",(value==="1" || value===1));
 	
 	} else {
-	if(input.length==1) {
+	if(input.length===1) {
 	$(input[0]).val(value);
 	}
 	}
@@ -81,6 +81,7 @@ define(["app/Baseform"],function(Baseform) {
     	}
 	
 	Form2.prototype.getPostData = function() {
+            $(this.getForm()).find("input[name=max_quota_per_account]").eq(0).val(formatters.FileSizeParser($(this.getForm()).find("input[name=max_quota_per_account_text]").eq(0).val()));
 	var postdata="",sel1 = $(this.el).find("div.multiple")[0];
 	$.map($(sel1).select2("val"),function(value) {
 	postdata = postdata +"&user_id="+value;

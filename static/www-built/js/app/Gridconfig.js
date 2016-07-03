@@ -22,5 +22,5 @@
  * THE SOFTWARE.
  */
 
-define(["app/i18n"],function(c){function d(a){this.columns=a.columns;this.options=a.options;this.url=a.url;this.selector=a.selector;this.deleteText=a.deleteText;this.deleteKey=a.deleteKey}d.prototype={getColumns:function(a){return this.columns},getOptions:function(){return this.options},getBufferText:function(){return c.gettext("Buffering...")},getUrl:function(){return this.url},initHeaderMenu:function(){for(var a=this.columns.length,b=0;b<a;b++)0!=this.columns[b].sortable&&(this.columns[b].header=
+define(["app/i18n"],function(c){function d(a){this.columns=a.columns;this.options=a.options;this.url=a.url;this.selector=a.selector;this.deleteText=a.deleteText;this.deleteKey=a.deleteKey}d.prototype={getColumns:function(){return this.columns},getOptions:function(){return this.options},getBufferText:function(){return c.gettext("Buffering...")},getUrl:function(){return this.url},initHeaderMenu:function(){for(var a=this.columns.length,b=0;b<a;b++)0!=this.columns[b].sortable&&(this.columns[b].header=
 {menu:{items:[{iconImage:"../static/css/images/sort-asc.png",title:c.gettext("Sort ascending"),command:"sort-asc"},{iconImage:"../static/css/images/sort-desc.png",title:c.gettext("Sort descending"),command:"sort-desc"}]}})}};return d});

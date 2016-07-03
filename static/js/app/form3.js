@@ -48,7 +48,7 @@
  */
 
 
-define(["app/Baseform"],function(Baseform) {
+define(["app/Baseform","slick.formatters"],function(Baseform,formatters) {
 	function Form2(sel) {
 	this.selector = {url:'/ajax/domains',valueField:'id',displayField:'domain_name',root:'domains',multiple:false};
 	Baseform.call(this,sel);
@@ -63,17 +63,25 @@ define(["app/Baseform"],function(Baseform) {
 	
 	var modal = $(this.el);
 	$.each(record,function(key,value) {
-	var input = $(modal).find("input[name="+key+"]");
-	if(input.length==1) {
+            var input = $(modal).find("input[name="+key+"]");
+        
+        if(key === "quota")  {
+          var text = $(modal).find("input[name=quota_text]")[0];
+          $(text).val(formatters.FileSizeFormatter(undefined,undefined,value));
+          $(input[0]).val(value);
+          } else  {
+	
+	if(input.length===1) {
 	$(input[0]).val(value);
 	}
-		
+	 }	
 	});
 	
 
-    }
+    };
 	
 	Form2.prototype.getPostData = function() {
+            $(this.getForm()).find("input[name=quota]").eq(0).val(formatters.FileSizeParser($(this.getForm()).find("input[name=quota_text]").eq(0).val()));
 	var postdata="";
 	if($(($(this.el).find("div.multiple"))[0]).css('display')!='none') {
 	postdata="&domain_id="+$(($(this.el).find("div.multiple"))[0]).select2("val");

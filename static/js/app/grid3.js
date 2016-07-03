@@ -48,7 +48,7 @@
  */
 
 
-define(['slick.editors','app/Formatter','app/Gridconfig','app/i18n'], function (editor,formatter,Gridconfig,i18n) {
+define(['slick.editors','slick.formatters','app/Gridconfig','app/i18n'], function (editor,formatter,Gridconfig,i18n) {
   
   	function Grid3(config) {
 	Gridconfig.call(this,config);

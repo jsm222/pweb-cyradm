@@ -35,8 +35,8 @@
                      {
                         baseUrl:"../static/js/lib",
                         paths:{app:"../app",
-                        jquery:"//code.jquery.com/jquery-1.10.1.min",
-                        jqueryui:"//code.jquery.com/ui/1.10.3/jquery-ui.min"}
+                        jquery:"//code.jquery.com/jquery-1.11.3.min",
+                        jqueryui:"//code.jquery.com/ui/1.11.4/jquery-ui.min"}
                         }
                     );
 

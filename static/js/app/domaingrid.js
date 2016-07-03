@@ -48,7 +48,7 @@
  */
 
 
-define(['slick.editors','app/grid2','app/i18n'], function (editor,grid2,i18n) {
+define(['slick.editors','slick.formatters','app/grid2','app/i18n'], function (editor,formatters,grid2,i18n) {
 
 
 
@@ -60,25 +60,7 @@ define(['slick.editors','app/grid2','app/i18n'], function (editor,grid2,i18n) {
     return (value==="1" || value===1) ? i18n.gettext("Yes") : i18n.gettext("No");
   }},
     {id: "max_accounts_per_domain", name: i18n.gettext("Max accounts"), field:"max_accounts_per_domain",sortable:true,focusable:true,editor: editor.Integer,editable:true},
-    {id: "max_quota_per_account", name: i18n.gettext("Max quota pr. account"), formatter:function(row, cell, value, columnDef, dataContext) {
-var bytes=dataContext.max_quota_per_account,fmtValue="";
-bytes = Number(bytes);
-        var types = ['KB', 'MB', 'GB', 'TB', 'PB' ],i=0;
-	var posttxt = 0;
-	if (bytes == 0) { fmtValue = '0 KB'; return fmtValue;}
-	if (bytes < 1024) {
-			fmtValue = (Number(bytes)) + " " + types[posttxt];
-			return fmtValue;
-					
-	}
-	while( bytes >= 1024 ) {
-			
-			posttxt++;
-			bytes = bytes / 1024;
-	}
-fmtValue = (Number(bytes)) + " " + types[posttxt];
-return fmtValue;
-} ,field:"max_quota_per_account",sortable:true,focusable:true,editor: editor.FileSizeEditor,editable:true},
+    {id: "max_quota_per_account", name: i18n.gettext("Max quota pr. account"), formatter:formatters.FileSizeFormatter ,field:"max_quota_per_account",sortable:true,focusable:true,editor: editor.FileSizeEditor,editable:true},
     {id: "max_aliases_per_account", name: i18n.gettext("Max aliases pr. account"), field:"max_aliases_per_account",sortable:true,focusable:true,editor: editor.Integer,editable:true},
     {id: "managedby", name: i18n.gettext("Managed by"), field:"users",sfield:'username',formatter:function (row, cell, value, columnDef, dataContext) {
 	var str="";

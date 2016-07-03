@@ -83,7 +83,7 @@
 %			$error.=$lh->maketext("The passwords does not match")."\n";
 %		}
 %          if($ownaccount==0) {
-% 	      if($self->max_aliases ne '' && $self->max_aliases > -1 && $self->max_aliases > $usersdomain->max_aliases_per_account) {
+% 	      if($self->max_aliases ne '' && $self->max_aliases > -1 && $self->max_aliases > $usersdomain->max_aliases_per_account && defined($usersdomain->max_aliases_per_account)) {
 % 		$error.=$lh->maketext("The max number of aliases for the domain is [_1]",$usersdomain->max_aliases_per_account);
 %		} elsif($self->max_aliases ne "" && $self->max_aliases >-1) {
 %		$user->max_aliases($self->max_aliases);	
@@ -147,7 +147,7 @@
 % $user->{"max_aliases"} =($max_aliases) ? $max_aliases  : $max_aliases_per_account;
 % $user->{"quota_used"} = $quota[1];
 % $user->{"quota"} = $quota[2];
-% $user->{"quota_percentage"} = ($quota[2]) ? (($quota[1]/$quota[2])*100)." %" : "N/A";
+% $user->{"quota_percentage"} = ($quota[2]) ? sprintf("%.4f",($quota[1]/$quota[2]*100))." %" : "N/A";
 % print $json->encode($user);
 % }
 % } else { $m->res->status(403); }; 
@@ -230,7 +230,7 @@
 % my @quota = $imap->get_quotaroot("user.".$_->{"username"});
 % $_->{"quota_used"} = $quota[1];
 % $_->{"quota"} = $quota[2];
-% $_->{"quota_percentage"} = ($quota[2]) ? (sprintf("%.2f",($quota[1]/$quota[2])*100))." %" : "N/A";
+% $_->{"quota_percentage"} = ($quota[2]) ? (sprintf("%.4f",($quota[1]/$quota[2])*100))." %" : "N/A";
 % push(@rows,$_);
 % } @{$users};
 % map { push(@results,$json->encode($_))}@rows;

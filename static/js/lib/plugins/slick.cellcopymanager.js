@@ -6,7 +6,7 @@
   } else {
     // Browser globals
     root.Slick.CellCopyManager = factory(root.jQuery, root.Slick);
-  }
+    }
 }(this, function ($, Slick) { 
 
 

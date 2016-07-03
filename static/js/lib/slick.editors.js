@@ -3,17 +3,40 @@
  * @module Editors
  * @namespace Slick
  */
+/***
+ * Contains basic SlickGrid editors.
+ * @module Editors
+ * @namespace Slick
+ */
 
 // Universal module definition
 (function (root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['jquery','select2'], factory);
+    define(['jquery','./slick.core','select2'], factory);
   } else {
     // Browser globals
     root.Slick.Editors = factory(root.jQuery);
   }
-}(this, function ($) {
+}(this, function ($,Slick) {
+  // register namespace
+  $.extend(true, Slick, {
+      "Editors": {
+        "Text": TextEditor,
+        "Integer": IntegerEditor,
+	 "Float": FloatEditor,
+        "Date": DateEditor,
+        "YesNoSelect": YesNoSelectEditor,
+        "Checkbox": CheckboxEditor,
+        "PercentComplete": PercentCompleteEditor,
+        "LongText": LongTextEditor,
+        "FileSizeEditor":FileSizeEditor,
+        "SelectOptionEditor":SelectOptionEditor
+        
+      }
+    
+  });
+
   function TextEditor(args) {
     var $input;
     var defaultValue;
@@ -117,7 +140,7 @@
     };
 
     this.serializeValue = function () {
-      return parseInt($input.val(), 10) || null;
+      return parseInt($input.val(), 10) || 0;
     };
 
     this.applyValue = function (item, state) {
@@ -136,6 +159,13 @@
         };
       }
 
+      if (args.column.validator) {
+        var validationResults = args.column.validator($input.val());
+        if (!validationResults.valid) {
+          return validationResults;
+        }
+      }
+
       return {
         valid: true,
         msg: null
@@ -145,6 +175,103 @@
     this.init();
   }
 
+  function FloatEditor(args) {
+    var $input;
+    var defaultValue;
+    var scope = this;
+
+    this.init = function () {
+      $input = $("<INPUT type=text class='editor-text' />");
+
+      $input.bind("keydown.nav", function (e) {
+        if (e.keyCode === $.ui.keyCode.LEFT || e.keyCode === $.ui.keyCode.RIGHT) {
+          e.stopImmediatePropagation();
+        }
+      });
+
+      $input.appendTo(args.container);
+      $input.focus().select();
+    };
+
+    this.destroy = function () {
+      $input.remove();
+    };
+
+    this.focus = function () {
+      $input.focus();
+    };
+
+	function getDecimalPlaces() {
+		// returns the number of fixed decimal places or null
+		var rtn = args.column.editorFixedDecimalPlaces;
+		if (typeof rtn == 'undefined') { 
+			rtn = FloatEditor.DefaultDecimalPlaces;
+		}
+		return (!rtn && rtn!==0 ? null : rtn);
+	}
+	
+    this.loadValue = function (item) {
+      defaultValue = item[args.column.field];
+	  
+	  var decPlaces = getDecimalPlaces();
+	  if (decPlaces !== null 
+	  && (defaultValue || defaultValue===0) 
+	  && defaultValue.toFixed) { 
+		defaultValue = defaultValue.toFixed(decPlaces);
+	  }
+	  
+      $input.val(defaultValue);
+      $input[0].defaultValue = defaultValue;
+      $input.select();
+    };
+
+    this.serializeValue = function () {
+	  var rtn = parseFloat($input.val()) || 0;
+
+	  var decPlaces = getDecimalPlaces();
+	  if (decPlaces !== null 
+	  && (rtn || rtn===0) 
+	  && rtn.toFixed) { 
+		rtn = parseFloat(rtn.toFixed(decPlaces));
+	  }
+	  
+      return rtn;
+    };
+
+    this.applyValue = function (item, state) {
+      item[args.column.field] = state;
+    };
+
+    this.isValueChanged = function () {
+      return (!($input.val() == "" && defaultValue == null)) && ($input.val() != defaultValue);
+    };
+
+    this.validate = function () {
+      if (isNaN($input.val())) {
+        return {
+          valid: false,
+          msg: "Please enter a valid number"
+        };
+      }
+
+      if (args.column.validator) {
+        var validationResults = args.column.validator($input.val());
+        if (!validationResults.valid) {
+          return validationResults;
+        }
+      }
+
+      return {
+        valid: true,
+        msg: null
+      };
+    };
+
+    this.init();
+  }
+
+  FloatEditor.DefaultDecimalPlaces = null;
+  
   function DateEditor(args) {
     var $input;
     var defaultValue;
@@ -221,6 +348,13 @@
     };
 
     this.validate = function () {
+      if (args.column.validator) {
+        var validationResults = args.column.validator($input.val());
+        if (!validationResults.valid) {
+          return validationResults;
+        }
+      }
+
       return {
         valid: true,
         msg: null
@@ -298,22 +432,18 @@
     this.loadValue = function (item) {
       defaultValue = !!item[args.column.field];
       if (defaultValue) {
-        $select.attr("checked", "checked");
+        $select.prop('checked', true);
       } else {
-        $select.removeAttr("checked");
+        $select.prop('checked', false);
       }
     };
 
     this.serializeValue = function () {
-              return $select.attr("checked") ? true : false;
+      return $select.prop('checked');
     };
 
     this.applyValue = function (item, state) {
-        if (state == 'checked') {
-      item[args.column.field] = true;
-  } else {
-      item[args.column.field] = false;  
-  }
+      item[args.column.field] = state;
     };
 
     this.isValueChanged = function () {
@@ -409,7 +539,7 @@ function SelectOptionEditor(args) {
     var defaultValue;
     var scope = this;
     this.options =null;
-    
+
 
     this.init = function() {
       
@@ -576,10 +706,10 @@ function FileSizeEditor(args) {
 
     this.loadValue = function (item) {
       var defaultValue = item[args.column.field] || "",bytes,fmtValue="";
-bytes = Number(defaultValue);
+        bytes = Number(defaultValue);
         var types = ['KB', 'MB', 'GB', 'TB', 'PB' ],i=0;
 	var posttxt = 0;
-	if (bytes == 0) { defaultValue = '0 KB';} else {
+	if (bytes === 0)  { defaultValue = '0 KB';} else {
 	
 	while( bytes >= 1024 ) {
 			posttxt++;
@@ -587,7 +717,6 @@ bytes = Number(defaultValue);
 	}
 defaultValue = Number(bytes) + " " + types[posttxt];
 }
-	
 	
       $input.val(defaultValue);
       $input[0].defaultValue = defaultValue;
@@ -598,15 +727,22 @@ defaultValue = Number(bytes) + " " + types[posttxt];
     this.serializeValue = function () {
 	var arr=[],value=$input.val();
 	arr = value.match(new RegExp(/(^\d+(\.\d+)?)(\s+)?(KB|MB|GB|TB|PB)/i));
+        if(arr) {
        switch(arr[4].toUpperCase()) {
 	case "KB" : value=Number(arr[1]*1024);break;
 	case "MB" : value=Number(arr[1]*Math.pow(1024,2));break;
 	case "GB" : value=Number(arr[1]*Math.pow(1024,3));break;
 	case "TB" : value=Number(arr[1]*Math.pow(1024,4));break;
 	case "PB" : value=Number(arr[1]*Math.pow(1024,5));break;
-	}
-	value = Math.floor(value / 1024);	//stored in whole KB
+	
+        }
+        value = Math.floor(value / 1024);
+        }
+		//stored in whole KB
+        
+        
      return value;
+          
      };
 
     this.applyValue = function (item, state) {
@@ -728,6 +864,13 @@ defaultValue = Number(bytes) + " " + types[posttxt];
     };
 
     this.validate = function () {
+      if (args.column.validator) {
+        var validationResults = args.column.validator($input.val());
+        if (!validationResults.valid) {
+          return validationResults;
+        }
+      }
+
       return {
         valid: true,
         msg: null
@@ -736,17 +879,7 @@ defaultValue = Number(bytes) + " " + types[posttxt];
 
     this.init();
   }
-
-  return {
-    "Text": TextEditor,
-    "Integer": IntegerEditor,
-    "Date": DateEditor,
-    "YesNoSelect": YesNoSelectEditor,
-    "SelectOptionEditor":SelectOptionEditor,
-    "FileSizeEditor":FileSizeEditor,		
-    "Checkbox": CheckboxEditor,
-    "PercentComplete": PercentCompleteEditor,
-    "LongText": LongTextEditor
-  };
-
-})); 
+  return Slick.Editors;
+}
+        
+)); 

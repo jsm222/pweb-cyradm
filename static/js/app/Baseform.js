@@ -121,7 +121,7 @@ formatSelection: function(item) {
 id: function(item) { 
 return item[valueField]; }
 }
-if(config.url!=undefined && config.data == undefined) {
+if(config.url!==undefined && config.data == undefined) {
 sel2config.ajax=ajax;
 }else {
 sel2config.minimumInputLength=0;
@@ -131,7 +131,7 @@ sel2config.data=config.data;
 
 	$(domainsel).select2(sel2config);
 
-if(record != undefined) {
+if(record !== undefined) {
 $(domainsel).select2("data",record);
 }
 return domainsel;
@@ -148,7 +148,7 @@ $(dialog).attr("title",i18n.gettext("An error occured"));
 $(dialog).append("<p/>"+i18n.gettext("Permission denied")+"</p>")
 $(dialog).dialog({
 resizable: false,
-height:150,
+height:250,
 closeText:'',
 modal: true,
 buttons: [ { text: "Ok", click: function() { $("body").remove($(dialog)); $( this ).dialog( "destroy" ); } } ]
@@ -160,7 +160,7 @@ $(dialog).attr("title",i18n.gettext("An error occured"));
 $(dialog).append("<p>"+i18n.gettext("Invalid paramters")+"</p>")
 $(dialog).dialog({
 resizable: false,
-height:150,
+height:250,
 closeText:'',
 modal: true,
 buttons: [ { text: "Ok", click: function() { $( this ).dialog( "destroy" ); } } ]

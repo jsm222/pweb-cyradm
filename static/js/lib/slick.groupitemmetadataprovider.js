@@ -1,14 +1,22 @@
-(function (root, factory) {
+// Universal module definition
+(function (root, factory) 
+
+{
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['jquery', './slick.core'], factory);
-  } else {
+    define(['jquery', './slick.core', 'jquery.event/drag'], factory);
+ } else {
     // Browser globals
     root.Slick.Data = root.Slick.Data || {};
     root.Slick.Data.GroupItemMetadataProvider = factory(root.jQuery, root.Slick);
   }
-}(this, function ($, Slick) {
+}(this, function ($, Slick) { 
 
+  $.extend(true, Slick, {
+      Data: {
+        GroupItemMetadataProvider: GroupItemMetadataProvider
+      }
+    });
 
   /***
    * Provides item metadata for group (Slick.Group) and totals (Slick.Totals) rows produced by the DataView.
@@ -35,7 +43,9 @@
       toggleCssClass: "slick-group-toggle",
       toggleExpandedCssClass: "expanded",
       toggleCollapsedCssClass: "collapsed",
-      enableExpandCollapse: true
+      enableExpandCollapse: true,
+      groupFormatter: defaultGroupCellFormatter,
+      totalsFormatter: defaultTotalsCellFormatter
     };
 
     options = $.extend(true, {}, _defaults, options);
@@ -79,6 +89,12 @@
     function handleGridClick(e, args) {
       var item = this.getDataItem(args.row);
       if (item && item instanceof Slick.Group && $(e.target).hasClass(options.toggleCssClass)) {
+        var range = _grid.getRenderedRange();
+        this.getData().setRefreshHints({
+          ignoreDiffsBefore: range.top,
+          ignoreDiffsAfter: range.bottom + 1
+        });
+
         if (item.collapsed) {
           this.getData().expandGroup(item.groupingKey);
         } else {
@@ -97,6 +113,12 @@
         if (activeCell) {
           var item = this.getDataItem(activeCell.row);
           if (item && item instanceof Slick.Group) {
+            var range = _grid.getRenderedRange();
+            this.getData().setRefreshHints({
+              ignoreDiffsBefore: range.top,
+              ignoreDiffsAfter: range.bottom + 1
+            });
+
             if (item.collapsed) {
               this.getData().expandGroup(item.groupingKey);
             } else {
@@ -118,7 +140,7 @@
         columns: {
           0: {
             colspan: "*",
-            formatter: defaultGroupCellFormatter,
+            formatter: options.groupFormatter,
             editor: null
           }
         }
@@ -130,7 +152,7 @@
         selectable: false,
         focusable: options.totalsFocusable,
         cssClasses: options.totalsCssClass,
-        formatter: defaultTotalsCellFormatter,
+        formatter: options.totalsFormatter,
         editor: null
       };
     }
@@ -143,7 +165,6 @@
       "getTotalsRowMetadata": getTotalsRowMetadata
     };
   }
-
-  return GroupItemMetadataProvider;
-
-})); 
+        return GroupItemMetadataProvider; 
+}
+        ));

@@ -1,14 +1,13 @@
-// Universal module definition
-(function (root, factory) {
-  if (typeof define === 'function' && define.amd) {
-    // AMD. Register as an anonymous module.
-    define(['jquery', '../slick.core'], factory);
-  } else {
-    // Browser globals
-    root.Slick.Plugins = root.Slick.Plugins || {};
-    root.Slick.Plugins.HeaderButtons = factory(root.jQuery, root.Slick);
-  }
-}(this, function ($, Slick) { 
+(function ($) {
+  // register namespace
+  $.extend(true, window, {
+    "Slick": {
+      "Plugins": {
+        "HeaderButtons": HeaderButtons
+      }
+    }
+  });
+
 
   /***
    * A plugin to add custom buttons to column headers.
@@ -175,7 +174,4 @@
       "onCommand": new Slick.Event()
     });
   }
-
-  return HeaderButtons;
-
-})); 
+})(jQuery);

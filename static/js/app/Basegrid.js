@@ -81,7 +81,7 @@ $(dialog).attr("title",config.getErrorHeader());
 $(dialog).append("<p></p>").append(document.createTextNode(data.errorMsg));
 $(dialog).dialog({
 resizable: false,
-height:150,
+height:250,
 closeText:'',
 modal: true,
 buttons: [ { text: "Ok", click: function() { $( this ).dialog( "destroy" );  } }]
@@ -118,7 +118,7 @@ $(s).css({'float':"left",margin: "0 7px 20px 0"});
 $("<p></p>").append(s).append(config.getDialogText(record)).appendTo($(dialog));
 $(dialog).dialog({
 resizable: false,
-height:150,
+height:250,
 closeText:'',
 modal: true,
 buttons: {
@@ -147,13 +147,13 @@ return false;
     var row = (grid.getSelectedRows())[0];
     var formular = new form("div.item-details-form-tmpl");	
 $(formular.getForm()).on("form-saved",function(e,data) {
-if(data.success != undefined && data.success===0) {
-dialog = $("<div/>");
+if(data.success !== undefined && data.success===0) {
+var dialog = $("<div/>");
 $(dialog).attr("title",config.getErrorHeader());
 $(dialog).append("<p></p>").append(document.createTextNode(data.errorMsg));
 $(dialog).dialog({
 resizable: false,
-height:150,
+height:250,
 closeText:'',
 modal: true,
 buttons: [ { text: "Ok", click: function() { $(this).dialog("destroy"); } } ]
@@ -171,12 +171,12 @@ formular.show();
 });
 $(config).on("row-saved",function(e,data,row) {
   if(data.success===0) {
-    dialog = $("<div/>");
+   var dialog = $("<div/>");
 $(dialog).attr("title",config.getErrorHeader());
 $(dialog).append("<p></p>").append(document.createTextNode(data.errorMsg));
 $(dialog).dialog({
 resizable: false,
-height:150,
+height:250,
 closeText:'',
 modal: true,
 buttons: [ { text: "Ok", click: function() {$( this ).dialog( "destroy" ); } } ]
@@ -185,7 +185,7 @@ buttons: [ { text: "Ok", click: function() {$( this ).dialog( "destroy" ); } } ]
 	} else {
 grid.invalidateRow(row);
 (grid.getData())[row]=data;
-console.dir(data);
+
 grid.render();
 	}
 return false;

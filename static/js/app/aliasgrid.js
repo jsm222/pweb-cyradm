@@ -48,7 +48,7 @@
  */
 
 
-define(['slick.editors','app/Formatter','app/grid4','app/i18n'], function (editor,formatter,grid4,i18n) {
+define(['app/grid4','app/i18n'], function (grid4,i18n) {
   
     var m4 = new grid4(
    {columns : [

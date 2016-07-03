@@ -6,7 +6,7 @@
   } else {
     // Browser globals
     root.Slick.CellSelectionModel = factory(root.jQuery, root.Slick, root.Slick.CellRangeSelector);
-  }
+    }
 }(this, function ($, Slick, CellRangeSelector) { 
 
 
@@ -15,7 +15,7 @@
     var _canvas;
     var _ranges = [];
     var _self = this;
-    var _selector = new CellRangeSelector({
+    var _selector = new Slick.CellRangeSelector({
       "selectionCss": {
         "border": "2px solid black"
       }
@@ -59,6 +59,9 @@
     }
 
     function setSelectedRanges(ranges) {
+      // simle check for: empty selection didn't change, prevent firing onSelectedRangesChanged
+      if ((!_ranges || _ranges.length === 0) && (!ranges || ranges.length === 0)) { return; }
+
       _ranges = removeInvalidRanges(ranges);
       _self.onSelectedRangesChanged.notify(_ranges);
     }

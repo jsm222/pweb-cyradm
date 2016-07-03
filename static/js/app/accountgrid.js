@@ -48,14 +48,14 @@
  */
 
 
-define(['slick.editors','app/Formatter','app/grid3','app/i18n'], function (editor,formatter,Grid3,i18n) {
+define(['slick.editors','app/grid3','slick.formatters','app/i18n'], function (editor,Grid3,formatter,i18n) {
   
     var m3 = new Grid3(
    {columns : [
     {id: "id", name: "id", field: "id",sortable:true,focusable:true,editable:false},
     {id: "username", name: i18n.gettext("Account"), field:"username",sortable:true,focusable:true,editor: false},
-    {id: "quota", name: i18n.gettext("Quota"),formatter:formatter.quotaFormat ,field:"quota",sortable:false,focusable:true,editable:true,editor:editor.FileSizeEditor,searchable:false},
-    {id: "quota_used", name:  i18n.gettext("Quota used"), formatter:formatter.quotaFormat,field:"quota_used",sortable:false,focusable:true,editable:false,searchable:false},
+    {id: "quota", name: i18n.gettext("Quota"),formatter:formatter.FileSizeFormatter ,field:"quota",sortable:false,focusable:true,editable:true,editor:editor.FileSizeEditor,searchable:false},
+    {id: "quota_used", name:  i18n.gettext("Quota used"), formatter:formatter.FileSizeFormatter,field:"quota_used",sortable:false,focusable:true,editable:false,searchable:false},
     {id: "quota_percentage", name:  i18n.gettext("Quota percentage"), field:"quota_percentage",sortable:false,focusable:true,editable: false,searchable:false},
     {id: "aliases", name: i18n.gettext("Number of aliases"), field:"aliases_count",sortable:false,focusable:true,editor: false,searchable:false},
     {id: "max aliases",name: i18n.gettext("Max number of aliases"), field:"max_aliases",sortable:false,focusable:true,editable:true,editor:editor.Integer,searchable:false }

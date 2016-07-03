@@ -22,4 +22,4 @@
  * THE SOFTWARE.
  */
 
-requirejs.config({baseUrl:"../static/js/lib",paths:{app:"../app",jquery:"//code.jquery.com/jquery-1.10.1.min",jqueryui:"//code.jquery.com/ui/1.10.3/jquery-ui.min"}});require(["jquery","jqueryui"],function(a,b){a(function(){a("#menu").menu();a("#left").show()})});define("../page0",function(){});
+requirejs.config({baseUrl:"../static/js/lib",paths:{app:"../app",jquery:"//code.jquery.com/jquery-1.11.3.min",jqueryui:"//code.jquery.com/ui/1.11.4/jquery-ui.min"}});require(["jquery","jqueryui"],function(a,b){a(function(){a("#menu").menu();a("#left").show()})});define("../page0",function(){});

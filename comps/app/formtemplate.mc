@@ -39,10 +39,11 @@
 <label><% $self->lh->maketext("Max accounts") %></label>
 <input type="text" name="max_accounts_per_domain">
 <label><% $self->lh->maketext("Max quota per account") %></label>
-<input type="text" name="max_quota_per_account">
+<input type="text" name="max_quota_per_account_text">
+<input type="hidden" name="max_quota_per_account">
 <label><% $self->lh->maketext("Max aliases per account") %></label>
 <input type="text" name="max_aliases_per_account">
-    
+
     <div class='item-details-form-buttons'>
       <button data-action='save'><% $self->lh->maketext('save') %></button>
       <button data-action='cancel'><% $self->lh->maketext('cancel') %></button>
@@ -63,7 +64,8 @@
 <label><% $self->lh->maketext("Confirm password") %></label> 
 <input type="password" name="passwordconfirm">
 <label><% $self->lh->maketext("Quota") %></label>
-<input type="text" name="quota">
+<input type="text" name="quota_text">
+<input type="hidden" name="quota">
 <label><% $self->lh->maketext("Max aliases") %></label>
 <input type="text" name="max_aliases">
     

@@ -6,7 +6,7 @@
   } else {
     // Browser globals
     root.Slick.CheckboxSelectColumn = factory(root.jQuery, root.Slick);
-  }
+    }
 }(this, function ($, Slick) { 
 
   function CheckboxSelectColumn(options) {

@@ -7,7 +7,7 @@
     // Browser globals
     root.Slick.Plugins = root.Slick.Plugins || {};
     root.Slick.Plugins.HeaderMenu = factory(root.jQuery, root.Slick);
-  }
+      }
 }(this, function ($, Slick) { 
   /***
    * A plugin to add drop-down menus to column headers.
@@ -224,17 +224,9 @@
 
 
       // Position the menu.
-     // $menu
-       // .offset({ top: $(this).offset().top + $(this).height(), left: $(this).offset().left });
-    $menu.position({
-      my: "left top",
-      at: "left bottom",
-      of: $(this)
-      });
+      $menu
+        .offset({ top: $(this).offset().top + $(this).height(), left: $(this).offset().left });
 
- 
-
-      $menu.offset({ top: $menuButton.offset().top + $menuButton.height(), left: leftPos });
 
       // Mark the header as active to keep the highlighting.
       $activeHeaderColumn = $menuButton.closest(".slick-header-column");

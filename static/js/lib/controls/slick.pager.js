@@ -9,7 +9,7 @@
     root.Slick.Controls.Pager = factory(root.jQuery, root.Slick);
   }
 }(this, function ($, Slick) {
- 
+   $.extend(true, Slick, { Controls:{ Pager:SlickGridPager }});
   function SlickGridPager(dataView, grid, $container) {
     var $status;
 

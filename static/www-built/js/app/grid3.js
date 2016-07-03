@@ -22,4 +22,4 @@
  * THE SOFTWARE.
  */
 
-define(["slick.editors","app/Formatter","app/Gridconfig","app/i18n"],function(d,e,c,b){function a(a){c.call(this,a);return this}a.prototype=Object.create(c.prototype);a.prototype.getDeleteText=function(a){return b.gettext("Delete account?")};a.prototype.getErrorHeader=function(){return b.gettext("An error occured")};a.prototype.getDialogText=function(a){return b.sprintf(b.gettext("Delete account %s ?"),a.username)};return a});
+define(["slick.editors","slick.formatters","app/Gridconfig","app/i18n"],function(d,e,c,b){function a(a){c.call(this,a);return this}a.prototype=Object.create(c.prototype);a.prototype.getDeleteText=function(a){return b.gettext("Delete account?")};a.prototype.getErrorHeader=function(){return b.gettext("An error occured")};a.prototype.getDialogText=function(a){return b.sprintf(b.gettext("Delete account %s ?"),a.username)};return a});
